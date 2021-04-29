@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 option go_package = "github.com/ksivvi0/statusdetector/internal/server";
 
 service Detector {
@@ -17,18 +19,19 @@ message URLRequest {
     }
     TimeFormat time = 2;
 }
-message URLResponse {
-    string url = 1;
+
+message History {
+    google.protobuf.Timestamp check_time = 1;
     int32 code = 2;
+}
+
+message URLResponse {
+    repeated History history = 1;
 }
 
 message HistoryResponse {
     string url = 1;
-    message Stat {
-        string time = 1;
-        int32 code = 2;
-    }
-    repeated Stat stats = 2;
+    repeated History history = 2;
 }
 
 message VoidResponse {}
