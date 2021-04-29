@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "github.com/ksivvi0/statusdetector/internal/server";
+
+service Detector {
+    rpc GetHistory(URLRequest) returns (HistoryResponse) {}
+    rpc GetStatus(URLRequest) returns (URLResponse) {}
+    rpc DropURL(URLRequest) returns (VoidResponse) {}
+}
+
+message URLRequest {
+    string url = 1;
+    enum TimeFormat {
+        daily = 0;
+        hourly = 1;
+        minutely = 2;
+    }
+    TimeFormat time = 2;
+}
+message URLResponse {
+    string url = 1;
+    int32 code = 2;
+}
+
+message HistoryResponse {
+    string url = 1;
+    message Stat {
+        string time = 1;
+        int32 code = 2;
+    }
+    repeated Stat stats = 2;
+}
+
+message VoidResponse {}
