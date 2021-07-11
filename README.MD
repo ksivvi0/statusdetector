@@ -3,3 +3,5 @@
     GetStatus - check url status
     DropURL - drop url
     GetHistory - get checking history
+
+incomplete project
